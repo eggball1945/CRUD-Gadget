@@ -26,12 +26,32 @@
             <td>{{ $item->name }}</td>
             <td>{{ $item->description }}</td>
             <td>
-                <a href="{{ route('electronics.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                <form action="{{ route('electronics.destroy', $item->id) }}" method="POST" style="display:inline-block;">
+
+                <!-- VIEW -->
+                <a href="{{ route('electronics.show', $item->id) }}" 
+                   class="btn btn-sm btn-primary">
+                    View
+                </a>
+
+                <!-- EDIT -->
+                <a href="{{ route('electronics.edit', $item->id) }}" 
+                   class="btn btn-sm btn-warning">
+                    Edit
+                </a>
+
+                <!-- DELETE -->
+                <form action="{{ route('electronics.destroy', $item->id) }}" 
+                      method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+
+                    <button type="submit" 
+                            class="btn btn-sm btn-danger"
+                            onclick="return confirm('Are you sure?')">
+                        Delete
+                    </button>
                 </form>
+
             </td>
         </tr>
         @endforeach
