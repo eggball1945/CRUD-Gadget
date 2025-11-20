@@ -3,9 +3,12 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Electronics List</h2>
-    <a href="{{ route('electronics.create') }}" class="btn btn-primary">Add New</a>
-</div>
 
+    <div class="d-flex gap-2">
+        <a href="{{ route('electronics.create') }}" class="btn btn-primary">Add New</a>
+        <a href="{{ route('electronics.fullview') }}" class="btn btn-secondary">Full View</a>
+    </div>
+</div> 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
