@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Electronic;
@@ -19,13 +20,22 @@ class ElectronicController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'nullable',
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
         ]);
 
-        Electronic::create($request->all());
-        return redirect()->route('electronics.index')->with('success', 'Electronic item created successfully.');
+        Electronic::create($validated);
+
+        return redirect()
+            ->route('electronics.index')
+            ->with('success', 'Electronic item created successfully.');
+    }
+
+    public function fullView()
+    {
+        $electronics = Electronic::all();
+        return view('electronics.fullview', compact('electronics'));
     }
 
     public function show(Electronic $electronic)
@@ -40,18 +50,24 @@ class ElectronicController extends Controller
 
     public function update(Request $request, Electronic $electronic)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'nullable',
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
         ]);
 
-        $electronic->update($request->all());
-        return redirect()->route('electronics.index')->with('success', 'Electronic item updated successfully.');
+        $electronic->update($validated);
+
+        return redirect()
+            ->route('electronics.index')
+            ->with('success', 'Electronic item updated successfully.');
     }
 
     public function destroy(Electronic $electronic)
     {
         $electronic->delete();
-        return redirect()->route('electronics.index')->with('success', 'Electronic item deleted successfully.');
+
+        return redirect()
+            ->route('electronics.index')
+            ->with('success', 'Electronic item deleted successfully.');
     }
 }
